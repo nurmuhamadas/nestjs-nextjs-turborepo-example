@@ -45,6 +45,17 @@ export const nextJsConfig = [
   importPlugin.flatConfigs.recommended,
   importPlugin.flatConfigs.typescript,
   {
+    settings: {
+      "import/resolver": {
+        typescript: {
+          alwaysTryTypes: true,
+          project: "packages/*/{ts,js}config.json",
+        },
+        node: true,
+      },
+    },
+  },
+  {
     files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
     ignores: ["/**/*.d.ts", "/**/*.types.ts", "*.next-env.js", "package.json"],
     plugins: {
