@@ -1,45 +1,33 @@
 import globals from "globals";
-import pluginNext from "@next/eslint-plugin-next";
-import pluginReactHooks from "eslint-plugin-react-hooks";
-import pluginReact from "eslint-plugin-react";
 import { config as baseConfig } from "./base.js";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
 import importPlugin from "eslint-plugin-import";
 
 /**
- * A custom ESLint configuration for libraries that use Next.js.
+ * A custom ESLint configuration for libraries that use Nest JS.
  *
  * @type {import("eslint").Linter.Config[]}
  * */
-export const nextJsConfig = [
+export const nestJsConfig = [
   ...baseConfig,
   {
-    ...pluginReact.configs.flat.recommended,
     languageOptions: {
-      ...pluginReact.configs.flat.recommended.languageOptions,
       globals: {
-        ...globals.serviceworker,
+        ...globals.node,
+        ...globals.jest,
+      },
+      ecmaVersion: 5,
+      sourceType: "module",
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
       },
     },
   },
   {
-    plugins: {
-      "@next/next": pluginNext,
-    },
     rules: {
-      ...pluginNext.configs.recommended.rules,
-      ...pluginNext.configs["core-web-vitals"].rules,
-    },
-  },
-  {
-    plugins: {
-      "react-hooks": pluginReactHooks,
-    },
-    settings: { react: { version: "detect" } },
-    rules: {
-      ...pluginReactHooks.configs.recommended.rules,
-      // React scope no longer necessary with new JSX transform.
-      "react/react-in-jsx-scope": "off",
+      "@typescript-eslint/no-floating-promises": "warn",
+      "@typescript-eslint/no-unsafe-argument": "warn",
     },
   },
   importPlugin.flatConfigs.recommended,
@@ -60,8 +48,6 @@ export const nextJsConfig = [
         "error",
         {
           groups: [
-            ["server-only"],
-
             // Node.js builtins prefixed with `node:`.
             ["^node:"],
 
@@ -70,10 +56,7 @@ export const nextJsConfig = [
               "^(assert|buffer|child_process|cluster|console|constants|crypto|dgram|dns|domain|events|fs|http|https|module|net|os|path|punycode|querystring|readline|repl|stream|string_decoder|sys|timers|tls|tty|url|util|vm|zlib|freelist|v8|process|async_hooks|http2|perf_hooks)(/.*|$)",
             ],
 
-            // Group for 'react' and sub-paths like 'react/jsx-runtime'
-            ["^react$", "^react/.+"],
-            // Group for 'next' and sub-paths like 'next/router'
-            ["^next$", "^next/.+"],
+            ["^@nestjs$", "^@nestjs/.+"],
 
             ["^@?\\w"],
 
