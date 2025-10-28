@@ -1,7 +1,7 @@
-import createProduct from "../actions/create-product";
+import createProduct from '../actions/create-product';
 
-import { Button } from "./button";
-import { Input } from "./input";
+import { Button } from './button';
+import { Input } from './input';
 
 export const ProductForm = () => {
   return (

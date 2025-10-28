@@ -1,8 +1,8 @@
-import { Product } from "@repo/types";
+import { Product } from '@repo/types';
 
 export const Products = async () => {
   const response = await fetch(`${process.env.API_URL}/products`, {
-    next: { tags: ["products"] },
+    next: { tags: ['products'] },
   });
   const products: Product[] = await response.json();
 
