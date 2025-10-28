@@ -1,135 +1,190 @@
-# Turborepo starter
+# NestJS + Next.js Monorepo with Turborepo
 
-This Turborepo starter is maintained by the Turborepo core team.
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/yourusername/nestjs-nextjs-tuborepo/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9.2-blue.svg)](https://www.typescriptlang.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org/)
 
-## Using this example
+A modern, scalable full-stack monorepo showcasing the integration of **NestJS** backend with **Next.js** frontend, leveraging **Turborepo** for efficient build orchestration and shared tooling. This project demonstrates best practices in monorepo management, type safety, and cross-application development.
 
-Run the following command:
+## 🚀 Project Overview
 
-```sh
-npx create-turbo@latest
-```
+This monorepo serves as a comprehensive example of building a full-stack application with modern JavaScript/TypeScript technologies. It features a RESTful API backend built with NestJS and a responsive web frontend using Next.js, all managed within a single repository for streamlined development and deployment.
 
-## What's inside?
+**Key Technologies:**
 
-This Turborepo includes the following packages/apps:
+- **Backend:** NestJS, Node.js, Express
+- **Frontend:** Next.js, React, Tailwind CSS
+- **Build Tool:** Turborepo
+- **Language:** TypeScript
+- **Package Manager:** pnpm
+- **Linting/Formatting:** ESLint, Prettier
 
-### Apps and Packages
+**Goals:**
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+- Demonstrate monorepo architecture for scalable development
+- Showcase type-safe communication between frontend and backend
+- Provide a foundation for rapid prototyping and production-ready applications
+- Highlight efficient CI/CD workflows with Turborepo
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
+## 📁 Project Structure
 
 ```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
+nestjs-nextjs-tuborepo/
+├── apps/
+│   ├── backend-nestjs/          # NestJS API server
+│   │   ├── src/
+│   │   │   ├── products/        # Product management module
+│   │   │   └── main.ts          # Application entry point
+│   │   └── Dockerfile           # Containerization
+│   └── web/                     # Next.js frontend application
+│       ├── app/                 # App Router pages and components
+│       ├── components/          # Reusable UI components
+│       └── public/              # Static assets
+├── packages/
+│   ├── eslint-config/           # Shared ESLint configurations
+│   ├── typescript-config/       # Shared TypeScript configurations
+│   └── types/                   # Shared TypeScript types and interfaces
+├── turbo.json                   # Turborepo configuration
+├── pnpm-workspace.yaml          # pnpm workspace configuration
+└── package.json                 # Root package.json with workspace scripts
 ```
 
-You can build a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+### Applications
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
+- **`apps/backend-nestjs`**: RESTful API built with NestJS, featuring product management endpoints
+- **`apps/web`**: Modern React application with Next.js App Router, Tailwind CSS styling, and server actions
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
+### Shared Packages
 
-### Develop
+- **`packages/types`**: Centralized TypeScript definitions for type safety across apps
+- **`packages/eslint-config`**: Consistent code quality rules for all packages
+- **`packages/typescript-config`**: Standardized TypeScript compiler options
 
-To develop all apps and packages, run the following command:
+## 🛠️ Common Packages Creation
 
-```
-cd my-turborepo
+Shared packages in this monorepo are developed with a focus on reusability and maintainability:
 
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
+### Development Workflow
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
-```
+1. **Local Development**: Use `pnpm dev` for watch mode compilation
+2. **Building**: Run `pnpm build` to compile TypeScript to JavaScript
+3. **Versioning**: Semantic versioning with automated changelog generation
+4. **Publishing**: Internal publishing to workspace registry for cross-package dependencies
 
-You can develop a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+### Key Practices
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=web
+- **Type Safety**: All packages export TypeScript definitions for IDE support
+- **Dependency Management**: Workspace protocol (`workspace:*`) for internal dependencies
+- **Build Orchestration**: Turborepo handles dependency graphs and parallel builds
+- **Cross-Package Imports**: Seamless importing of shared utilities and types
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
+## 💡 Monorepo Benefits & Best Practices
 
-### Remote Caching
+### Advantages
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+- **Code Sharing**: Eliminate duplication with shared packages and utilities
+- **Atomic Changes**: Single commit for changes across multiple applications
+- **Consistent Tooling**: Unified ESLint, Prettier, and TypeScript configurations
+- **Efficient CI/CD**: Parallel builds and intelligent caching with Turborepo
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+### Implemented Best Practices
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
+- **Workspace Dependencies**: Use `workspace:*` for internal package references
+- **Task Dependencies**: Turborepo ensures proper build order with `dependsOn`
+- **Caching Strategy**: Remote caching for faster CI builds
+- **Type Safety**: Shared types prevent runtime errors across applications
 
-```
-cd my-turborepo
+## 📦 Installation & Setup
 
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
+### Prerequisites
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
-```
+- Node.js 18+
+- pnpm 9.0.0+
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+### Quick Start
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/nestjs-nextjs-tuborepo.git
+cd nestjs-nextjs-tuborepo
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
+# Install dependencies
+pnpm install
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
+# Start development servers
+pnpm dev
 ```
 
-## Useful Links
+### Development Commands
 
-Learn more about the power of Turborepo:
+```bash
+# Build all applications and packages
+pnpm build
 
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+# Run linting across the monorepo
+pnpm lint
+
+# Format code with Prettier
+pnpm format
+
+# Type checking
+pnpm check-types
+
+# Run tests
+pnpm test
+```
+
+### Individual App Development
+
+```bash
+# Backend development
+cd apps/backend-nestjs
+pnpm dev
+
+# Frontend development
+cd apps/web
+pnpm dev
+```
+
+## 🚀 Deployment
+
+### Backend (NestJS)
+
+```bash
+cd apps/backend-nestjs
+pnpm build
+pnpm start:prod
+```
+
+### Frontend (Next.js)
+
+```bash
+cd apps/web
+pnpm build
+pnpm start
+```
+
+### Docker Support
+
+Both applications include Dockerfiles for containerized deployment.
+
+### Development Guidelines
+
+- Follow TypeScript best practices
+- Maintain consistent code style with ESLint and Prettier
+- Add tests for new features
+- Update documentation as needed
+
+## 📞 Contact
+
+**Your Name**
+
+- GitHub: [@nurmuhamadas](https://github.com/nurmuhamadas)
+- LinkedIn: [Nur Muhamad Ash Shidiqi](https://linkedin.com/in/nurmuhamadas)
+- Medium: [Beyond Dev](https://blog.beyonddev.id)
+- Email: nurmuhamad.a.13@gmail.com
+
+---
+
+_Built with ❤️ using NestJS, Next.js, and Turborepo_
